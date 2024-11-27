@@ -6,6 +6,8 @@ import com.gtb.geneport.infrastucture.presentation.UserPresentation;
 import com.gtb.geneport.infrastucture.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UserDatabase implements UserGateway {
 
@@ -35,5 +37,24 @@ public class UserDatabase implements UserGateway {
         userResponse.setPhoneNumber(response.getPhoneNumber());
 
         return userResponse;
+    }
+
+    @Override
+    public User findById(Long id) {
+        Optional<UserPresentation> response = userRepository.findById(id);
+
+        if (response.isPresent()){
+
+        return new User.Builder()
+                .id(response.get().getId())
+                .firstName(response.get().getFirstName())
+                .lastName(response.get().getLastName())
+                .email(response.get().getEmail())
+                .password(response.get().getPassword())
+                .phoneNumber(response.get().getPhoneNumber())
+                .build();
+        }
+
+        return null;
     }
 }

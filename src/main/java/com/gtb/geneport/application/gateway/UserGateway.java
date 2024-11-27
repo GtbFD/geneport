@@ -5,4 +5,5 @@ import org.springframework.stereotype.Component;
 
 public interface UserGateway {
     User create(User user);
+    User findById(Long id);
 }
