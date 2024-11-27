@@ -16,4 +16,8 @@ public class UserUsecase {
     public User create(User user) {
         return userGateway.create(user);
     }
+
+    public User findById(long id) {
+        return userGateway.findById(id);
+    }
 }
