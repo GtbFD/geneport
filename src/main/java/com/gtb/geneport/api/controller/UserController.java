@@ -23,4 +23,9 @@ public class UserController {
     public ResponseEntity<User> findById(@PathVariable Long id){
         return ResponseEntity.ok(userUseCase.findById(id));
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user){
+        return ResponseEntity.ok(userUseCase.update(id, user));
+    }
 }
