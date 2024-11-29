@@ -57,4 +57,39 @@ public class UserDatabase implements UserGateway {
 
         return null;
     }
+
+    @Override
+    public User update(Long id, User user) {
+
+        User fetchedUser = findById(id);
+
+        User userResponse = null;
+        if (fetchedUser != null) {
+
+            UserPresentation updatedUser = new UserPresentation.Builder()
+                    .id(fetchedUser.getId())
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
+                    .email(user.getEmail())
+                    .password(user.getPassword())
+                    .phoneNumber(user.getPhoneNumber())
+                    .build();
+
+            userResponse = new User.Builder()
+                    .id(updatedUser.getId())
+                    .firstName(updatedUser.getFirstName())
+                    .lastName(updatedUser.getLastName())
+                    .email(updatedUser.getEmail())
+                    .password(updatedUser.getPassword())
+                    .phoneNumber(updatedUser.getPhoneNumber())
+                    .build();
+
+            userRepository.save(updatedUser);
+
+        }
+
+        return userResponse;
+    }
+
+
 }

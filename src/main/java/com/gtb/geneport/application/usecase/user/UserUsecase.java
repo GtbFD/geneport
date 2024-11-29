@@ -20,4 +20,8 @@ public class UserUsecase {
     public User findById(long id) {
         return userGateway.findById(id);
     }
+
+    public User update(Long id, User user) {
+        return userGateway.update(id, user);
+    }
 }
