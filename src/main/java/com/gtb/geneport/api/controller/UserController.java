@@ -18,7 +18,6 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<UserVO> create(@RequestBody UserDTO userDTO){
-
         User user = userUseCase.create(userDTO);
 
         return ResponseEntity.ok(UserVO.transform(user.getFirstName(), user.getLastName(), user.getEmail(),
@@ -27,7 +26,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserVO> findById(@PathVariable Long id){
-
         User user = userUseCase.findById(id);
 
         return ResponseEntity.ok(UserVO.transform(user.getFirstName(), user.getLastName(), user.getEmail(),
@@ -36,7 +34,6 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserVO> update(@PathVariable Long id, @RequestBody UserDTO userDTO){
-
         User user = userUseCase.update(id, userDTO);
 
         return ResponseEntity.ok(UserVO.transform(user.getFirstName(), user.getLastName(), user.getEmail(),
