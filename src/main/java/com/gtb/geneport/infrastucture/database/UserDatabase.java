@@ -1,6 +1,8 @@
 package com.gtb.geneport.infrastucture.database;
 
+import com.gtb.geneport.api.vo.UserVO;
 import com.gtb.geneport.application.gateway.UserGateway;
+import com.gtb.geneport.domain.dto.UserDTO;
 import com.gtb.geneport.domain.entity.User;
 import com.gtb.geneport.infrastucture.presentation.UserPresentation;
 import com.gtb.geneport.infrastucture.repository.UserRepository;
@@ -18,13 +20,13 @@ public class UserDatabase implements UserGateway {
     }
 
     @Override
-    public User create(User user) {
+    public User create(UserDTO user) {
         UserPresentation userPresentation = new UserPresentation();
-        userPresentation.setFirstName(user.getFirstName());
-        userPresentation.setLastName(user.getLastName());
-        userPresentation.setEmail(user.getEmail());
-        userPresentation.setPassword(user.getPassword());
-        userPresentation.setPhoneNumber(user.getPhoneNumber());
+        userPresentation.setFirstName(user.firstName());
+        userPresentation.setLastName(user.lastName());
+        userPresentation.setEmail(user.email());
+        userPresentation.setPassword(user.password());
+        userPresentation.setPhoneNumber(user.phoneNumber());
 
         UserPresentation response = userRepository.save(userPresentation);
 
@@ -59,7 +61,7 @@ public class UserDatabase implements UserGateway {
     }
 
     @Override
-    public User update(Long id, User user) {
+    public User update(Long id, UserDTO userDTO) {
 
         User fetchedUser = findById(id);
 
@@ -68,11 +70,11 @@ public class UserDatabase implements UserGateway {
 
             UserPresentation updatedUser = new UserPresentation.Builder()
                     .id(fetchedUser.getId())
-                    .firstName(user.getFirstName())
-                    .lastName(user.getLastName())
-                    .email(user.getEmail())
-                    .password(user.getPassword())
-                    .phoneNumber(user.getPhoneNumber())
+                    .firstName(userDTO.firstName())
+                    .lastName(userDTO.lastName())
+                    .email(userDTO.email())
+                    .password(userDTO.password())
+                    .phoneNumber(userDTO.phoneNumber())
                     .build();
 
             userResponse = new User.Builder()
