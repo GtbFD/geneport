@@ -4,6 +4,7 @@ import com.gtb.geneport.api.vo.UserVO;
 import com.gtb.geneport.application.gateway.UserGateway;
 import com.gtb.geneport.domain.dto.UserDTO;
 import com.gtb.geneport.domain.entity.User;
+import com.gtb.geneport.infrastucture.mapper.UserMapper;
 import com.gtb.geneport.infrastucture.presentation.UserPresentation;
 import com.gtb.geneport.infrastucture.repository.UserRepository;
 import org.springframework.stereotype.Component;
@@ -14,29 +15,21 @@ import java.util.Optional;
 public class UserDatabase implements UserGateway {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserDatabase(UserRepository userRepository) {
+    public UserDatabase(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public User create(UserDTO user) {
-        UserPresentation userPresentation = new UserPresentation();
-        userPresentation.setFirstName(user.firstName());
-        userPresentation.setLastName(user.lastName());
-        userPresentation.setEmail(user.email());
-        userPresentation.setPassword(user.password());
-        userPresentation.setPhoneNumber(user.phoneNumber());
+    public User create(UserDTO userDTO) {
+
+        UserPresentation userPresentation = userMapper.toPresentation(userDTO);
 
         UserPresentation response = userRepository.save(userPresentation);
 
-        User userResponse = new User();
-        userResponse.setId(response.getId());
-        userResponse.setFirstName(response.getFirstName());
-        userResponse.setLastName(response.getLastName());
-        userResponse.setEmail(response.getEmail());
-        userResponse.setPassword(response.getPassword());
-        userResponse.setPhoneNumber(response.getPhoneNumber());
+        User userResponse = userMapper.presentationToMap(response);
 
         return userResponse;
     }
@@ -46,15 +39,7 @@ public class UserDatabase implements UserGateway {
         Optional<UserPresentation> response = userRepository.findById(id);
 
         if (response.isPresent()){
-
-        return new User.Builder()
-                .id(response.get().getId())
-                .firstName(response.get().getFirstName())
-                .lastName(response.get().getLastName())
-                .email(response.get().getEmail())
-                .password(response.get().getPassword())
-                .phoneNumber(response.get().getPhoneNumber())
-                .build();
+            return userMapper.presentationToMap(response.get());
         }
 
         return null;
@@ -67,27 +52,10 @@ public class UserDatabase implements UserGateway {
 
         User userResponse = null;
         if (fetchedUser != null) {
+            UserPresentation updatedUser = userMapper.toPresentation(userDTO);
 
-            UserPresentation updatedUser = new UserPresentation.Builder()
-                    .id(fetchedUser.getId())
-                    .firstName(userDTO.firstName())
-                    .lastName(userDTO.lastName())
-                    .email(userDTO.email())
-                    .password(userDTO.password())
-                    .phoneNumber(userDTO.phoneNumber())
-                    .build();
-
-            userResponse = new User.Builder()
-                    .id(updatedUser.getId())
-                    .firstName(updatedUser.getFirstName())
-                    .lastName(updatedUser.getLastName())
-                    .email(updatedUser.getEmail())
-                    .password(updatedUser.getPassword())
-                    .phoneNumber(updatedUser.getPhoneNumber())
-                    .build();
-
+            userResponse = userMapper.presentationToMap(updatedUser);
             userRepository.save(updatedUser);
-
         }
 
         return userResponse;
