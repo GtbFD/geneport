@@ -27,16 +27,20 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserVO> findById(@PathVariable Long id){
         User user = userUseCase.findById(id);
-
-        return ResponseEntity.ok(UserVO.transform(user.getFirstName(), user.getLastName(), user.getEmail(),
-                user.getPassword(), user.getPhoneNumber(), user.getAddress()));
+        if (user != null) {
+            return ResponseEntity.ok(UserVO.transform(user.getFirstName(), user.getLastName(), user.getEmail(),
+                    user.getPassword(), user.getPhoneNumber(), user.getAddress()));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserVO> update(@PathVariable Long id, @RequestBody UserDTO userDTO){
         User user = userUseCase.update(id, userDTO);
-
-        return ResponseEntity.ok(UserVO.transform(user.getFirstName(), user.getLastName(), user.getEmail(),
-                user.getPassword(), user.getPhoneNumber(), user.getAddress()));
+        if (user != null) {
+            return ResponseEntity.ok(UserVO.transform(user.getFirstName(), user.getLastName(), user.getEmail(),
+                    user.getPassword(), user.getPhoneNumber(), user.getAddress()));
+        }
+        return ResponseEntity.notFound().build();
     }
 }

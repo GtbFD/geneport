@@ -21,7 +21,6 @@ public class UserMapper {
 
     public UserPresentation toPresentation(UserDTO userDTO){
         return new UserPresentation.Builder()
-                .id(null)
                 .firstName(userDTO.firstName())
                 .lastName(userDTO.lastName())
                 .email(userDTO.email())
