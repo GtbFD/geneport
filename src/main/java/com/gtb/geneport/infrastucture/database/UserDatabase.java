@@ -53,6 +53,7 @@ public class UserDatabase implements UserGateway {
         User userResponse = null;
         if (fetchedUser != null) {
             UserPresentation updatedUser = userMapper.toPresentation(userDTO);
+            updatedUser.setId(fetchedUser.getId());
 
             userResponse = userMapper.presentationToMap(updatedUser);
             userRepository.save(updatedUser);
