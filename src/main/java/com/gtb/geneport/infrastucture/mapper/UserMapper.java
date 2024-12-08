@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
+    private final AddressMapper addressMapper;
+
+    public UserMapper(AddressMapper addressMapper) {
+        this.addressMapper = addressMapper;
+    }
+
     public User presentationToMap(UserPresentation userPresentation){
         return new User.Builder()
                 .id(userPresentation.getId())
@@ -16,6 +22,7 @@ public class UserMapper {
                 .email(userPresentation.getEmail())
                 .password(userPresentation.getPassword())
                 .phoneNumber(userPresentation.getPhoneNumber())
+                .address(addressMapper.presentationToMap(userPresentation.getAddress()))
                 .build();
     }
 
@@ -26,6 +33,7 @@ public class UserMapper {
                 .email(userDTO.email())
                 .password(userDTO.password())
                 .phoneNumber(userDTO.phoneNumber())
+                .address(addressMapper.mapToPresentation(userDTO.address()))
                 .build();
     }
 }

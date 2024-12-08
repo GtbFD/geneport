@@ -19,7 +19,7 @@ public class UserPresentation {
     @Embedded
     private AddressPresentation address;
 
-    public UserPresentation(Long id, String firstName, String lastName, String email, String password, String phoneNumber, AddressPresentation addressPresentation) {
+    public UserPresentation(Long id, String firstName, String lastName, String email, String password, String phoneNumber, AddressPresentation address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
