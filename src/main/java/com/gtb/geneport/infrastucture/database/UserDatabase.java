@@ -62,5 +62,13 @@ public class UserDatabase implements UserGateway {
         return userResponse;
     }
 
+    public boolean delete(Long id) {
+        Optional<UserPresentation> response = userRepository.findById(id);
 
+        if (response.isPresent()) {
+            userRepository.delete(response.get());
+            return true;
+        }
+        return false;
+    }
 }

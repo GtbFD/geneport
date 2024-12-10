@@ -26,4 +26,8 @@ public class UserUsecase {
     public User update(Long id, UserDTO userDTO) {
         return userGateway.update(id, userDTO);
     }
+
+    public boolean delete(long id) {
+        return userGateway.delete(id);
+    }
 }

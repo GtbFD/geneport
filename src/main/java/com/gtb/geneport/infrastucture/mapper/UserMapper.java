@@ -22,6 +22,9 @@ public class UserMapper {
                 .email(userPresentation.getEmail())
                 .password(userPresentation.getPassword())
                 .phoneNumber(userPresentation.getPhoneNumber())
+                .githubLink(userPresentation.getGithubLink())
+                .linkedinLink(userPresentation.getLinkedinLink())
+                .dateOfBirth(userPresentation.getDateOfBirth())
                 .address(addressMapper.presentationToMap(userPresentation.getAddress()))
                 .build();
     }
@@ -33,6 +36,9 @@ public class UserMapper {
                 .email(userDTO.email())
                 .password(userDTO.password())
                 .phoneNumber(userDTO.phoneNumber())
+                .githubLink(userDTO.githubLink())
+                .linkedinLink(userDTO.linkedinLink())
+                .dateOfBirth(userDTO.dateOfBirth())
                 .address(addressMapper.mapToPresentation(userDTO.address()))
                 .build();
     }
