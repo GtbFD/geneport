@@ -9,4 +9,5 @@ public interface UserGateway {
     User create(UserDTO user);
     User findById(Long id);
     User update(Long id, UserDTO user);
+    boolean delete(Long id);
 }

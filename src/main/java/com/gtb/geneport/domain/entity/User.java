@@ -1,5 +1,6 @@
 package com.gtb.geneport.domain.entity;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
@@ -10,15 +11,22 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
+    private String githubLink;
+    private String linkedinLink;
+    private LocalDate dateOfBirth;
     private Address address;
 
-    public User(Long id, String firstName, String lastName, String email, String password, String phoneNumber, Address address) {
+    public User(Long id, String firstName, String lastName, String email, String password, String phoneNumber,
+                String githubLink, String linkedinLink, LocalDate dateOfBirth, Address address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.githubLink = githubLink;
+        this.linkedinLink = linkedinLink;
+        this.dateOfBirth = dateOfBirth;
         this.address = address;
     }
 
@@ -32,6 +40,9 @@ public class User {
         private String email;
         private String password;
         private String phoneNumber;
+        private String githubLink;
+        private String linkedinLink;
+        private LocalDate dateOfBirth;
         private Address address;
 
         public Builder id(Long id){
@@ -69,8 +80,24 @@ public class User {
             return this;
         }
 
+        public Builder githubLink(String githubLink){
+            this.githubLink = githubLink;
+            return this;
+        }
+
+        public Builder linkedinLink(String linkedinLink){
+            this.linkedinLink = linkedinLink;
+            return this;
+        }
+
+        public Builder dateOfBirth(LocalDate dateOfBirth){
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+
         public User build(){
-            return new User(id, firstName, lastName, email, password, phoneNumber, address);
+            return new User(id, firstName, lastName, email, password, phoneNumber, githubLink, linkedinLink,
+                    dateOfBirth, address);
         }
     }
 
@@ -130,17 +157,41 @@ public class User {
         this.address = address;
     }
 
+    public String getGithubLink() {
+        return githubLink;
+    }
+
+    public void setGithubLink(String githubLink) {
+        this.githubLink = githubLink;
+    }
+
+    public String getLinkedinLink() {
+        return linkedinLink;
+    }
+
+    public void setLinkedinLink(String linkedinLink) {
+        this.linkedinLink = linkedinLink;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(address, user.address);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(githubLink, user.githubLink) && Objects.equals(linkedinLink, user.linkedinLink) && Objects.equals(dateOfBirth, user.dateOfBirth) && Objects.equals(address, user.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password, phoneNumber, address);
+        return Objects.hash(id, firstName, lastName, email, password, phoneNumber, githubLink, linkedinLink, dateOfBirth, address);
     }
 
     @Override
@@ -152,6 +203,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", githubLink='" + githubLink + '\'' +
+                ", linkedinLink='" + linkedinLink + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 ", address=" + address +
                 '}';
     }
